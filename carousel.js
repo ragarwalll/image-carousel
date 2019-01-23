@@ -59,8 +59,7 @@ for( var j=0; j<totalSlides; j++){
 }
 
 function previousItem(change){
-    if(working == false){
-        working = true;
+
         var active=document.querySelector(".items-index .active");
         var activeCircle=document.querySelector(".marker-container .active-circle");
         var current=parseInt(document.querySelector(".marker-container .active-circle").getAttribute("id"));
@@ -70,40 +69,24 @@ function previousItem(change){
         try{
             active.classList.remove("active");
             activeCircle.classList.remove("active-circle");
-
+            
             slides[current-change-1].classList.add("active");
             circle[current-change-1].classList.add("active-circle");
-            
-            for(var i=0; i<totalSlides; i++){
-                var widthItem = parseInt($(slides[i]).css("left"));
-                var widthWindow = $(window).width();
 
-                widthItem = (widthItem / widthWindow) * 100;
-                widthItem = widthItem + (100*change)
-                slides[i].style.left = widthItem + "%";
-            }
-            setTimeout(function() {
-                working = false;
-                }, 400) 
+            curSlide=curSlide-change;
+            mainSlide.style.transform= "translate3d(" + -curSlide * 100 + "%,0,0)";
+            
         }
         catch(e){
             slides[0].classList.add("active");
             circle[0].classList.add("active-circle");
-            for(var i=0; i<totalSlides; i++){
-                var widthItem = parseInt($(slides[i]).css("left"));
-                widthItem = (widthItem / widthWindow) * 100;
-                slides[i].style.left = widthItem + "%";
-            }
-            setTimeout(function() {
-                working = false;
-                }, 400) 
+             
         }
     }
-}
+
 
 function nextItem(change){
-    if(working == false){
-        working = true;
+    
         var active=document.querySelector(".items-index .active");
         var activeCircle=document.querySelector(".marker-container .active-circle");
         var current=parseInt(document.querySelector(".marker-container .active-circle").getAttribute("id"));
@@ -113,36 +96,22 @@ function nextItem(change){
         try{
             active.classList.remove("active");
             activeCircle.classList.remove("active-circle");
-
+            
             slides[current+change-1].classList.add("active");
             circle[current+change-1].classList.add("active-circle");
 
-            for(var i=0; i<totalSlides; i++){
-                var widthItem = parseInt($(slides[i]).css("left"));
-                var widthWindow = $(window).width();
-                widthItem = (widthItem / widthWindow) * 100;
-                widthItem = widthItem - (100*change);
-                slides[i].style.left = widthItem + "%";
-            }
-            setTimeout(function() {
-                working = false;
-                }, 500)
+            curSlide=curSlide+change;
+
+            mainSlide.style.transform= "translate3d(" + -curSlide * 100 + "%,0,0)";
+
         }
         catch(e){
             slides[totalSlides-1].classList.add("active");
             circle[totalSlides-1].classList.add("active-circle");
-            for(var i=0; i<totalSlides; i++){
-                var widthItem = parseInt($(slides[i]).css("left"));
-                var widthWindow = $(window).width();
-                widthItem = (widthItem / widthWindow) * 100;
-                slides[i].style.left = widthItem + "%";
-            }
-            setTimeout(function() {
-                working = false;
-                }, 500)
+            
         }
     }
-}
+
 
 function changeItem(){
     var current=document.querySelector(".marker-container .active-circle").getAttribute("id");
@@ -151,7 +120,9 @@ function changeItem(){
     var active=document.querySelector(".items-index .active");
     var activeCircle=document.querySelector(".marker-container .active-circle");
     if(current < clicked){
+        
         var diff=clicked - current;
+
         nextItem(diff);
     }
     if(current > clicked){

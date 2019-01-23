@@ -8,6 +8,7 @@ img{
 .slider{
     position: relative;
     transition: all 0.2s;
+    overflow: hidden;
 }
 .carousel-control{
     position: absolute;
@@ -61,7 +62,6 @@ img{
     transition: all 0.4s;
     will-change: transform;
     z-index: 1;
-    overflow: hidden;
 }
 .item{
     position: absolute;
@@ -73,9 +73,7 @@ img{
 .animating{
     
 }
-.active{
-    display: block;
-}
+
 .marker-container{
     z-index: 9;
     position: absolute;
