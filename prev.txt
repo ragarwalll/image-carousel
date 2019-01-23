@@ -1,0 +1,86 @@
+var left=document.querySelector(".carousel-left");
+var right=document.querySelector(".carousel-right");
+var totalSlides=document.querySelectorAll(".items-index .item").length;
+var slides=document.querySelectorAll(".items-index .item");
+var mainSlide=document.querySelector(".items-index");
+var curSlide=0;
+var tempSlide;
+
+left.addEventListener("click", previousItem);
+right.addEventListener("click", nextItem);
+
+function initial(){
+    for(var i=0; i<totalSlides; i++){
+        slides[i].classList.add("item" + i);
+        slides[0].classList.add("active");
+        slides[i].style.left= 100 * i + "%";
+    }
+}
+initial();
+
+function previousItem(){
+    try{
+        tempSlide.classList.remove("active");
+    }
+    catch(e){
+    }
+    var active=document.querySelector(".items-index .active");
+    try{
+        active.previousElementSibling.classList.add("active");
+        curSlide--;
+        mainSlide.style.transform= "translate3d(" + -curSlide * 100 + "%,0,0)";
+        var delayInMilliseconds = 500; //1 second
+        tempSlide = active;
+        setTimeout(function() {
+            active.classList.remove("active");
+        }, delayInMilliseconds);
+    }
+    catch(e){
+        slides[0].classList.add("active"); 
+    }
+}
+
+function nextItem(){
+    try{
+        tempSlide.classList.remove("active");
+    }
+    catch(e){
+    }
+    var active=document.querySelector(".items-index .active");
+    try{
+        active.nextElementSibling.classList.add("active");
+        curSlide++;
+        mainSlide.style.transform= "translate3d(" + -curSlide * 100 + "%,0,0)";
+        var delayInMilliseconds = 500; //1 second
+        tempSlide = active;
+        setTimeout(function() {
+            active.classList.remove("active");
+        }, delayInMilliseconds);
+        
+    }
+    catch(e){
+        slides[totalSlides-1].classList.add("active");
+    }
+}/*
+var onSlide = 0;
+$(document).ready(function(){
+    $('.items-index').on('mouseup','.active', function(e){
+        onSlide = 0;
+    });
+    $('.items-index').on('mousedown','.active', function(e){
+        onSlide = 1;
+        var x = e.clientX;
+        console.log(x);
+        var y = e.clientY;
+        $('.items-index').on('mousemove','.active', function(event){
+            if(onSlide == 1){
+                onSlide = 0;
+                var newx = event.clientX;
+                var newy = e.clientY;
+                console.log("x" + x);
+                console.log("xnew" + newx);
+            }   
+        });
+    });
+});
+  */
